@@ -1,0 +1,28 @@
+import com.poc.drools.java.droolsJavaDemo.Employee;
+import  com.poc.drools.java.droolsJavaDemo.Ship;
+
+rule "Eligible Employee"
+
+    when
+    	shipdetails:Ship(brand!=null);
+        emp:Employee(brand==shipdetails.brand);
+    then
+       System.out.println( "Eligible to join the crew");
+       modify(emp)
+       {
+       setIsEligible(true)
+       }
+      end;
+      
+rule "Not Eligible"
+   when
+    	shipdetails:Ship(brand!=null);
+        emp:Employee(brand!=shipdetails.brand);
+    then
+        System.out.println( " Not Eligible to join the crew");
+       modify(emp)
+       {
+       
+       setIsEligible(false)
+       }
+      end;
